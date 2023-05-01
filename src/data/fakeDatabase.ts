@@ -1,20 +1,40 @@
 // fakeDatabase.ts
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 
 type Role = 'ADMIN' | 'USER';
 
-export interface Skill {
-    id: string;
+// export interface Skill {
+//     id: string;
+//     designation: string;
+// }
+
+// export interface Cv {
+//     id: string;
+//     name: string;
+//     age: number;
+//     job: string;
+//     skills: Skill[];
+// }
+export interface SkillInput {
     designation: string;
 }
 
-export interface Cv {
-    id: string;
+export interface CvInput {
     name: string;
     age: number;
     job: string;
-    skills: Skill[];
+    id: string;
+    skills: SkillInput[];
 }
+
+export interface Cv extends CvInput {
+    id: string;
+}
+
+export interface Skill extends SkillInput {
+    id: string;
+}
+
 
 export interface User {
     id: string;
@@ -29,6 +49,7 @@ const randomJobs = ['Frontend Developer', 'Backend Developer', 'Full Stack Devel
 
 const generateRandomSkill = (): Skill => ({
     id: uuidv4(),
+    // he needs to have at least one designation
     designation: randomDesignations[Math.floor(Math.random() * randomDesignations.length)],
 });
 
@@ -39,7 +60,7 @@ const generateRandomCv = (): Cv => ({
     // he needs to have at least one job
     job: randomJobs[Math.floor(Math.random() * randomJobs.length)],
     // he needs to have at least one skill
-    skills: Array.from({ length: Math.floor(Math.random() * 5) + 1 }, generateRandomSkill),
+    skills: Array.from({length: Math.floor(Math.random() * 2) + 1}, generateRandomSkill),
 });
 
 const generateRandomUser = (): User => ({
@@ -48,7 +69,7 @@ const generateRandomUser = (): User => ({
     email: `user${Math.floor(Math.random() * 100)}@example.com`,
     role: Math.random() < 0.5 ? 'ADMIN' : 'USER',
     // he needs to have at least one cv
-    cvs: Array.from({ length: Math.floor(Math.random() * 5) + 1 }, generateRandomCv),
+    cvs: Array.from({length: Math.floor(Math.random() * 2) + 1}, generateRandomCv),
 });
 
-export const fakeDatabase: User[] = Array.from({ length: 3 }, generateRandomUser);
+export const fakeDatabase: User[] = Array.from({length: 3}, generateRandomUser);
