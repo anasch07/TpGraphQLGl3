@@ -14,6 +14,7 @@ export const Mutation = {
             throw new GraphQLError('No user with that id')
         }
         user.cvs.push(cv)
+        context.pubSub.publish('CvCreated', {CvCreated: cv})
         return cv
     },
 
@@ -30,6 +31,7 @@ export const Mutation = {
         cvToUpdate.job = cv.job
         //generate for every skill a new id
         cvToUpdate.skills = generateIdsForObjects(cv.skills)
+        context.pubSub.publish('CvUpdated', {CvUpdated: cvToUpdate})
         return cvToUpdate
     },
     deleteCv: (parent: unknown, args: { cvId: string }, context: any) => {
@@ -41,6 +43,7 @@ export const Mutation = {
         }
         const user = context.data.find((user: User) => user.cvs.includes(cvToDelete))
         user.cvs = user.cvs.filter((cv: Cv) => cv.id !== cvId)
+        context.pubSub.publish('DeletedCv', {CvDeleted: cvToDelete})
         return cvToDelete
     }
 }

@@ -57,4 +57,11 @@ export const typeDefinitions = /* GraphQL */ `
         deleteCv(cvId: ID!): Cv!
     }
 
+    type Subscription {
+        CvCreated: Cv!
+        CvUpdated: Cv!
+        CvDeleted: Cv!
+    }
+
+
 `
