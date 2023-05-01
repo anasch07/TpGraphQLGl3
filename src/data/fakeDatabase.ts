@@ -17,6 +17,7 @@ type Role = 'ADMIN' | 'USER';
 // }
 export interface SkillInput {
     designation: string;
+    id: string;
 }
 
 export interface CvInput {

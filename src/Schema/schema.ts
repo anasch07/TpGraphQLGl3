@@ -34,6 +34,7 @@ export const typeDefinitions = /* GraphQL */ `
 
     input SkillInput {
         designation: String!
+        id: ID
     }
 
     input CvInput {
@@ -52,8 +53,8 @@ export const typeDefinitions = /* GraphQL */ `
 
     type Mutation {
         addCv(cv: CvInput!, userId: ID!): Cv!
-        updateCv(id: ID!, cv: CvInput!): UserSkills
-        deleteCv(id: ID!): Cv!
+        updateCv(cvId: ID!, cv: CvInput!): Cv!
+        deleteCv(cvId: ID!): Cv!
     }
 
 `
